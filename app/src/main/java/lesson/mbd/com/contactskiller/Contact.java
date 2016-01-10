@@ -2,31 +2,52 @@ package lesson.mbd.com.contactskiller;
 
 import android.provider.ContactsContract;
 
+import java.util.ArrayList;
+
 /**
  * To Do:
  * - Make control mechanism for setter methods
  */
 public class Contact {
-    private String id;
+    private int id;
     private String name;
-    private PhoneNumber homeNumber;
-    private PhoneNumber mobileNumber;
-    private PhoneNumber workNumber;
+    private ArrayList<PhoneNumber> numbers = new ArrayList<PhoneNumber>();
+    private boolean isFromDefaultContacts;
+    private String mail;
+    private int missingCallCount;
+    private int incomingCallTime;
+    private int incomingCallCount;
+    private int outgoingCallTime;
+    private int outgoingCallCount;
+    private int sendMessageCount;
+    private int receivedMessageCount;
 
-    final static String HOME_TYPE = String.valueOf(ContactsContract.CommonDataKinds.Phone.TYPE_HOME);
-    final static String WORK_TYPE = String.valueOf(ContactsContract.CommonDataKinds.Phone.TYPE_WORK);
-    final static String MOBILE_TYPE = String.valueOf(ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);
+    public Contact() {
 
-    public Contact(String id, String name) {
-        this.id = id;
-        this.name = name;
     }
 
-    public String getId() {
+    public Contact(int id) {
+        this.id = id;
+    }
+
+    public Contact(String name) {
+        this.name = name;
+        isFromDefaultContacts = false;
+    }
+
+    public boolean isFromDefaultContacts() {
+        return isFromDefaultContacts;
+    }
+
+    public void setIsFromDefaultContacts(boolean isFromDefaultContacts) {
+        this.isFromDefaultContacts = isFromDefaultContacts;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -38,63 +59,92 @@ public class Contact {
         this.name = name;
     }
 
-    public PhoneNumber getHomeNumber() {
-        return homeNumber;
+    public ArrayList<PhoneNumber> getNumbers() {
+        return numbers;
     }
 
-    public void setNumber(String number, String type) {
-        PhoneNumber phoneNumber = new PhoneNumber();
-        phoneNumber.setNumber(number);
-
-        phoneNumber.setType(type);
-        if (type == HOME_TYPE)
-            setHomeNumber(phoneNumber);
-        else if (type == WORK_TYPE)
-            setWorkNumber(phoneNumber);
-        else if (type == MOBILE_TYPE)
-            setMobileNumber(phoneNumber);
-
-
-//        switch (type) {
-//            case homeType:
-//                setHomeNumber(phoneNumber);
-//                break;
-//            case "Work":
-//                setWorkNumber(phoneNumber);
-//                break;
-//            case "Mobile":
-//                setMobileNumber(phoneNumber);
-//        }
+    public void addNumber(PhoneNumber number) {
+        numbers.add(number);
     }
 
-    public void setHomeNumber(PhoneNumber homeNumber) {
-        this.homeNumber = homeNumber;
-    }
-
-    public PhoneNumber getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(PhoneNumber mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    public PhoneNumber getWorkNumber() {
-        return workNumber;
-    }
-
-    public void setWorkNumber(PhoneNumber workNumber) {
-        this.workNumber = workNumber;
+    public void setNumbers(ArrayList<PhoneNumber> numbers) {
+        this.numbers = numbers;
     }
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "id='" + id + '\'' + "\n" +
-                ", name='" + name + '\'' + "\n" +
-                ", homeNumber=" + homeNumber + "\n" +
-                ", mobileNumber=" + mobileNumber + "\n" +
-                ", workNumber=" + workNumber + "\n" +
-                '}';
+        String toPrint = "Contact{" + "\n" +
+                         "id='" + id + '\'' + "\n" +
+                         ", name='" + name + '\'' + "\n" +
+                         ", isFromDefaultContacts=" + isFromDefaultContacts + "\n";
+        toPrint += "numbers: \n";
+        for (PhoneNumber pn:numbers) {
+            toPrint += "> " + pn.getNumber();
+        }
+        return toPrint;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public int getMissingCallCount() {
+        return missingCallCount;
+    }
+
+    public void setMissingCallCount(int missingCallCount) {
+        this.missingCallCount = missingCallCount;
+    }
+
+    public int getIncomingCallTime() {
+        return incomingCallTime;
+    }
+
+    public void setIncomingCallTime(int incomingCallTime) {
+        this.incomingCallTime = incomingCallTime;
+    }
+
+    public int getIncomingCallCount() {
+        return incomingCallCount;
+    }
+
+    public void setIncomingCallCount(int incomingCallCount) {
+        this.incomingCallCount = incomingCallCount;
+    }
+
+    public int getOutgoingCallTime() {
+        return outgoingCallTime;
+    }
+
+    public void setOutgoingCallTime(int outgoingCallTime) {
+        this.outgoingCallTime = outgoingCallTime;
+    }
+
+    public int getOutgoingCallCount() {
+        return outgoingCallCount;
+    }
+
+    public void setOutgoingCallCount(int outgoingCallCount) {
+        this.outgoingCallCount = outgoingCallCount;
+    }
+
+    public int getSendMessageCount() {
+        return sendMessageCount;
+    }
+
+    public void setSendMessageCount(int sendMessageCount) {
+        this.sendMessageCount = sendMessageCount;
+    }
+
+    public int getReceivedMessageCount() {
+        return receivedMessageCount;
+    }
+
+    public void setReceivedMessageCount(int receivedMessageCount) {
+        this.receivedMessageCount = receivedMessageCount;
     }
 }

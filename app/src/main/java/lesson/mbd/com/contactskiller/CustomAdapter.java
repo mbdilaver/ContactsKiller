@@ -32,12 +32,12 @@ public class CustomAdapter extends ArrayAdapter<Contact> implements StickyListHe
         View customView = mbdInflater.inflate(R.layout.contact_row_layout, parent, false);
 
         String name = getItem(position).getName();
-        String id = getItem(position).getId();
+        int id = getItem(position).getId();
         TextView nameText = (TextView) customView.findViewById(R.id.contactName);
         TextView idText = (TextView) customView.findViewById(R.id.contactId);
 
         nameText.setText(name);
-        idText.setText(id);
+        idText.setText(id + "");
 
         return customView;
     }
